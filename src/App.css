@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+.imageCanvas {
+  width: 1920px;
+  height: 1080px;
+}
+
+.notification-container {
+  width: 600px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+@media (min-width: 0px) and (max-width: 768px) {
+  .notification-container {
+      width: 80%;
+      font-size: 15px;
+  }
+}
+

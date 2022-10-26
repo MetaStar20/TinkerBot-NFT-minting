@@ -10,6 +10,7 @@
 
 # production
 /build
+/Heroku
 
 # misc
 .DS_Store
