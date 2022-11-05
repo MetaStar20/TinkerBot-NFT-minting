@@ -11,11 +11,27 @@ import { NotificationManager } from "react-notifications";
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import { Buffer } from "buffer";
+import discord from "./assets/img/discord.png";
+import instagram from "./assets/img/insta.png";
+import opensea from "./assets/img/opensea.png";
+import twitter from "./assets/img/twitter.png";
+import youtube from "./assets/img/discord.png";
+import socialBar from "./assets/img/socialBar.png";
+import socialRec from "./assets/img/socialRec.png";
+import { isMobile } from "react-device-detect";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 const last_frame_of_logo = 125;
+
 const total_frames = 568;
+const total_frames_mobile = 384;
+
+const width = 1920;
+const height = 1080;
+
+const width_mobile = 414;
+const height_mobile = 896;
 
 const w = window.innerWidth;
 const h = window.innerHeight;
@@ -23,60 +39,68 @@ const h = window.innerHeight;
 const mint_index_start = 167;
 const mint_index_end = 205;
 
-const left_rect_of_mint = w * 0.35;
-const top_rect_of_mint = h * 0.15;
-const bottom_rect_of_mint = h * 0.85;
-const right_rect_of_mint = w * 0.61;
+const top_rect_of_mint = isMobile ? h * 0.18 : h * 0.15;
+const bottom_rect_of_mint = isMobile ? h * 0.5 : h * 0.85;
+const left_rect_of_mint = isMobile ? w * 0.1 : w * 0.35;
+const right_rect_of_mint = isMobile ? w * 0.95 : w * 0.61;
 
-const youtube_index_start = 320;
-const youtube_index_end = 497;
+const youtube_index_start = isMobile? 320 :320;
+const youtube_index_end = isMobile? 354 :497;
 
-const left_rect_of_youtube = w * 0.2;
 const top_rect_of_youtube = h * 0.196;
 const bottom_rect_of_youtube = h * 0.767;
+const left_rect_of_youtube = w * 0.2;
 const right_rect_of_youtube = w * 0.8;
 
-const wallet_index_start = 125;
-const wallet_index_end = 568;
+// variable when the menu will be displayed.
 
-const left_rect_of_wallet = w * 0.82;
-const top_rect_of_wallet = h * 0.0309;
-const bottom_rect_of_wallet = h * 0.0654;
-const right_rect_of_wallet = w;
+const wallet_index_start = last_frame_of_logo;
+const wallet_index_end = isMobile ? total_frames_mobile : total_frames;
 
-const mint_scroll_y = 3000;
-const road_scroll_y = 4600;
-const space_scroll_y = 9500;
-const team_scroll_y = 25000;
+// For menu scroll
 
+const mint_scroll_y = isMobile ? 3600 : 2000;
+const road_scroll_y = isMobile ? 4500 : 2800;
+const space_scroll_y = isMobile ? 9400 : 6500;
+const team_scroll_y = isMobile ? 14000 : 16000;
 
-const mint_top_rect = h * 0.0309;
-const mint_bottom_rect = h * 0.0654;
-const mint_left_rect = w * 0.3;
-const mint_right_rect = w * 0.37;
+// For Menu
 
-const road_top_rect = h * 0.0309;
-const road_bottom_rect = h * 0.0654;
-const road_left_rect = w * 0.4;
-const road_right_rect = w * 0.51;
+const mint_top_rect = isMobile ? h * 0.097 : h * 0.0309;
+const mint_bottom_rect = isMobile ? h * 0.114 : h * 0.0654;
+const mint_left_rect = isMobile ? w * 0.252 : w * 0.3;
+const mint_right_rect = isMobile ? w * 0.436 : w * 0.37;
 
-const space_top_rect = h * 0.0309;
-const space_bottom_rect = h * 0.0654;
-const space_left_rect = w * 0.536;
-const space_right_rect = w * 0.7;
+const road_top_rect = isMobile ? h * 0.097 : h * 0.0309;
+const road_bottom_rect = isMobile ? h * 0.114 : h * 0.0654;
+const road_left_rect = isMobile ? w * 0.467 : w * 0.4;
+const road_right_rect = isMobile ? w * 0.733 : w * 0.51;
 
-const team_top_rect = h * 0.0309;
-const team_bottom_rect = h * 0.0654;
-const team_left_rect = w * 0.72;
-const team_right_rect = w * 0.8;
+const space_top_rect = isMobile ? h * 0.116 : h * 0.0309;
+const space_bottom_rect = isMobile ? h * 0.138 : h * 0.0654;
+const space_left_rect = isMobile ? w * 0.053 : w * 0.536;
+const space_right_rect = isMobile ? w * 0.41 : w * 0.7;
+
+const team_top_rect = isMobile ? h * 0.116 : h * 0.0309;
+const team_bottom_rect = isMobile ? h * 0.138 : h * 0.0654;
+const team_left_rect = isMobile ? w * 0.443 : w * 0.72;
+const team_right_rect = isMobile ? w * 0.615 : w * 0.8;
+
+const top_rect_of_wallet = isMobile ? h * 0.116 : h * 0.0309;
+const bottom_rect_of_wallet = isMobile ? h * 0.138 : h * 0.0654;
+const left_rect_of_wallet = isMobile ? w * 0.641 : w * 0.82;
+const right_rect_of_wallet = isMobile ? w * 0.96 : w;
 
 function getCurrentFrame(index) {
+  const path = isMobile
+    ? "./assets/frames_mobile/TinkerMobile_"
+    : "./assets/frames/FullWebsite";
   if (index < 10) {
-    return require(`./assets/frames/FullWebsite0000${index}.webp`);
+    return require(`${path}0000${index}.webp`);
   } else if (index < 100) {
-    return require(`./assets/frames/FullWebsite000${index}.webp`);
+    return require(`${path}000${index}.webp`);
   } else {
-    return require(`./assets/frames/FullWebsite00${index}.webp`);
+    return require(`${path}00${index}.webp`);
   }
 }
 
@@ -183,7 +207,7 @@ const ImageCanvas = ({
         window.scrollTo({
           top: mint_scroll_y,
           behavior: "smooth",
-      });
+        });
       } else if (
         x > road_left_rect &&
         x < road_right_rect &&
@@ -196,7 +220,7 @@ const ImageCanvas = ({
         window.scrollTo({
           top: road_scroll_y,
           behavior: "smooth",
-      });
+        });
       } else if (
         x > space_left_rect &&
         x < space_right_rect &&
@@ -209,7 +233,7 @@ const ImageCanvas = ({
         window.scrollTo({
           top: space_scroll_y,
           behavior: "smooth",
-      });
+        });
       } else if (
         x > team_left_rect &&
         x < team_right_rect &&
@@ -222,7 +246,7 @@ const ImageCanvas = ({
         window.scrollTo({
           top: team_scroll_y,
           behavior: "smooth",
-      });
+        });
       }
     };
 
@@ -257,7 +281,7 @@ const ImageCanvas = ({
 
   return (
     <div style={{ height: scrollHeight }} useMap="#workmap">
-      <canvas ref={canvasRef} />
+      <canvas ref={canvasRef} className="basicLayer" />
     </div>
   );
 };
@@ -414,13 +438,17 @@ const App = () => {
   return (
     <main>
       <ImageCanvas
-        scrollHeight={30000}
-        width={1920}
-        height={1080}
-        numFrames={total_frames}
+        scrollHeight={20000}
+        width={isMobile ? width_mobile : width}
+        height={isMobile ? height_mobile : height}
+        numFrames={isMobile ? total_frames_mobile : total_frames}
         walletConnect={connectWallet}
         onMintHandler={onMintHandler}
       />
+      <div className="socialSection">
+        <img src={socialRec} className="social" alt="social" />
+      </div>
+
       <NotificationContainer />
     </main>
   );

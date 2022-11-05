@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.basicLayer{
+  z-index: -1;
+}
+
+.socialSection{
+  margin-top: -9rem;
+  text-align: end;
+  padding: 2rem;
+}
+
+.social {
+  width: 15rem;
+  height: 4.3rem;
+}
