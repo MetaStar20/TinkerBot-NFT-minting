@@ -3,19 +3,13 @@ import { useState, useEffect, useRef } from "react";
 import { ENVS } from "./config";
 import contractABI from "./abis/abi.json";
 
-import { Contract, providers, utils, ethers } from "ethers";
+import { ethers } from "ethers";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { MerkleTree } from "merkletreejs";
 import keccak256 from "keccak256";
 import { NotificationManager } from "react-notifications";
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
-import { Buffer } from "buffer";
-import discord from "./assets/img/discord.png";
-import instagram from "./assets/img/insta.png";
-import opensea from "./assets/img/opensea.png";
-import twitter from "./assets/img/twitter.png";
-import youtube from "./assets/img/discord.png";
 import socialBar from "./assets/img/socialBar.png";
 import socialRec from "./assets/img/socialRec.png";
 import { isMobile } from "react-device-detect";
@@ -24,7 +18,7 @@ window.Buffer = window.Buffer || require("buffer").Buffer;
 
 const last_frame_of_logo = 125;
 
-const total_frames = 568;
+const total_frames = 406;
 const total_frames_mobile = 384;
 
 const width = 1920;
@@ -44,8 +38,8 @@ const bottom_rect_of_mint = isMobile ? h * 0.5 : h * 0.85;
 const left_rect_of_mint = isMobile ? w * 0.1 : w * 0.35;
 const right_rect_of_mint = isMobile ? w * 0.95 : w * 0.61;
 
-const youtube_index_start = isMobile? 320 :320;
-const youtube_index_end = isMobile? 354 :497;
+const youtube_index_start = isMobile ? 320 : 320;
+const youtube_index_end = isMobile ? 354 : 497;
 
 const top_rect_of_youtube = h * 0.196;
 const bottom_rect_of_youtube = h * 0.767;
@@ -94,7 +88,7 @@ const right_rect_of_wallet = isMobile ? w * 0.96 : w;
 function getCurrentFrame(index) {
   const path = isMobile
     ? "./assets/frames_mobile/TinkerMobile_"
-    : "./assets/frames/FullWebsite";
+    : "./assets/frames/FullWebsite_";
   if (index < 10) {
     return require(`${path}0000${index}.webp`);
   } else if (index < 100) {
@@ -291,6 +285,14 @@ const App = () => {
   const [mintLoading, setMintLoading] = useState(false);
   const [account, setAccount] = useState("");
   const [error, setError] = useState("");
+  const [isSocialVisible, setIsSocialVisible] = useState(false);
+  const [socialH, setSocialH] = useState(0);
+  const [socialW, setSocialW] = useState(0);
+
+  const handleSocialClickEvent = () => {
+    if (!isSocialVisible) setIsSocialVisible(true);
+    else setIsSocialVisible(false);
+  };
 
   const connectWallet = async () => {
     try {
@@ -435,6 +437,14 @@ const App = () => {
     }
   };
 
+  useEffect(() => {
+    const height = document.getElementById("socialMenu").clientHeight;
+    const width = document.getElementById("socialMenu").clientWidth;
+    // update the state
+    setSocialH(height);
+    setSocialW(width);
+  }, [isSocialVisible]);
+
   return (
     <main>
       <ImageCanvas
@@ -446,8 +456,52 @@ const App = () => {
         onMintHandler={onMintHandler}
       />
       <div className="socialSection">
-        <img src={socialRec} className="social" alt="social" />
+        <img
+          src={isSocialVisible ? socialRec : socialBar}
+          className="social"
+          alt="social"
+          onClick={handleSocialClickEvent}
+          usemap="#socialMap"
+          id="socialMenu"
+        />
       </div>
+      {isSocialVisible && (
+        <map name="socialMap">
+          <area
+            shape="rect"
+            coords={socialW * 0.125 + "," + 15 + "," + socialW * 0.2375 + "," + 60}
+            alt="twitter"
+            href="https://twitter.com"
+          />
+
+          <area
+            shape="rect"
+            coords={socialW * 0.2375 + "," + 15 + "," + socialW * 0.4375 + "," + 60}
+            alt="discord"
+            href="https://discord.com"
+          />
+
+          <area
+            shape="rect"
+            coords={socialW * 0.4375 + "," + 15 + "," + socialW * 0.5625 + "," + 60}
+            alt="instagram"
+            href="https://instagram.com"
+          />
+
+          <area
+            shape="rect"
+            coords={socialW * 0.5625 + "," + 15 + "," + socialW * 0.6875 + "," + 60}
+            alt="opensea"
+            href="https://opensea.io"
+          />
+          <area
+            shape="rect"
+            coords={socialW * 0.6875 + "," + 15 + "," + socialW * 0.875 + "," + 60}
+            alt="youtube"
+            href="https://youtube.com"
+          />
+        </map>
+      )}
 
       <NotificationContainer />
     </main>

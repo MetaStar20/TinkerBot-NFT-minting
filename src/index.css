@@ -17,12 +17,14 @@ code {
 }
 
 .socialSection{
-  margin-top: -9rem;
-  text-align: end;
-  padding: 2rem;
+  position: fixed;
+  bottom: 0%;
+  right: 50%;
+  transform: translateX(50%);
+  display: flex;
 }
 
 .social {
-  width: 15rem;
-  height: 4.3rem;
+  width: 10rem;
+  height: auto;
 }
