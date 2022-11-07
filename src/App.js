@@ -12,9 +12,13 @@ import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import socialBar from "./assets/img/socialBar.png";
 import socialRec from "./assets/img/socialRec.png";
+import spaceVideo from "./assets/video/SpaceBall.mp4";
+
 import { isMobile } from "react-device-detect";
+import ReactPlayer from "react-player";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
+const youtubeURL = "https://youtu.be/QtccWDtlinU";
 
 const last_frame_of_logo = 125;
 
@@ -38,13 +42,8 @@ const bottom_rect_of_mint = isMobile ? h * 0.5 : h * 0.85;
 const left_rect_of_mint = isMobile ? w * 0.1 : w * 0.35;
 const right_rect_of_mint = isMobile ? w * 0.95 : w * 0.61;
 
-const youtube_index_start = isMobile ? 320 : 320;
-const youtube_index_end = isMobile ? 354 : 497;
-
-const top_rect_of_youtube = h * 0.196;
-const bottom_rect_of_youtube = h * 0.767;
-const left_rect_of_youtube = w * 0.2;
-const right_rect_of_youtube = w * 0.8;
+const youtube_index_start = isMobile ? 320 : 315;
+const youtube_index_end = isMobile ? 354 : 374;
 
 // variable when the menu will be displayed.
 
@@ -54,8 +53,8 @@ const wallet_index_end = isMobile ? total_frames_mobile : total_frames;
 // For menu scroll
 
 const mint_scroll_y = isMobile ? 3600 : 2000;
-const road_scroll_y = isMobile ? 4500 : 2800;
-const space_scroll_y = isMobile ? 9400 : 6500;
+const road_scroll_y = isMobile ? 4500 : 4300;
+const space_scroll_y = isMobile ? 9400 : 8600;
 const team_scroll_y = isMobile ? 14000 : 16000;
 
 // For Menu
@@ -97,6 +96,24 @@ function getCurrentFrame(index) {
     return require(`${path}00${index}.webp`);
   }
 }
+
+const Embedvideo = (props) => {
+  return (
+    <div
+      dangerouslySetInnerHTML={{
+        __html: `
+    <video
+      loop
+      muted
+      autoplay
+      playsinline
+      class="player-wrapper"
+    ><source src="${props.url}" type="video/mp4" /> </video>
+  `,
+      }}
+    ></div>
+  );
+};
 
 const ImageCanvas = ({
   scrollHeight,
@@ -169,17 +186,7 @@ const ImageCanvas = ({
       ) {
         console.log("mint section clicked");
         onMintHandler();
-      } else if (
-        x > left_rect_of_youtube &&
-        x < right_rect_of_youtube &&
-        y > top_rect_of_youtube &&
-        y < bottom_rect_of_youtube &&
-        frameIndex > youtube_index_start &&
-        frameIndex < youtube_index_end
-      ) {
-        console.log("Youtube section clicked");
-        window.open("https://youtu.be/QtccWDtlinU");
-      } else if (
+      }  else if (
         x > left_rect_of_wallet &&
         x < right_rect_of_wallet &&
         y > top_rect_of_wallet &&
@@ -274,8 +281,9 @@ const ImageCanvas = ({
   }, []);
 
   return (
-    <div style={{ height: scrollHeight }} useMap="#workmap">
+    <div style={{ height: scrollHeight }}>
       <canvas ref={canvasRef} className="basicLayer" />
+      {frameIndex > youtube_index_start && frameIndex < youtube_index_end && <Embedvideo url={spaceVideo} />}
     </div>
   );
 };
@@ -461,7 +469,7 @@ const App = () => {
           className="social"
           alt="social"
           onClick={handleSocialClickEvent}
-          usemap="#socialMap"
+          useMap="#socialMap"
           id="socialMenu"
         />
       </div>
@@ -469,34 +477,44 @@ const App = () => {
         <map name="socialMap">
           <area
             shape="rect"
-            coords={socialW * 0.125 + "," + 15 + "," + socialW * 0.2375 + "," + 60}
+            coords={
+              socialW * 0.125 + "," + 15 + "," + socialW * 0.2375 + "," + 60
+            }
             alt="twitter"
             href="https://twitter.com"
           />
 
           <area
             shape="rect"
-            coords={socialW * 0.2375 + "," + 15 + "," + socialW * 0.4375 + "," + 60}
+            coords={
+              socialW * 0.2375 + "," + 15 + "," + socialW * 0.4375 + "," + 60
+            }
             alt="discord"
             href="https://discord.com"
           />
 
           <area
             shape="rect"
-            coords={socialW * 0.4375 + "," + 15 + "," + socialW * 0.5625 + "," + 60}
+            coords={
+              socialW * 0.4375 + "," + 15 + "," + socialW * 0.5625 + "," + 60
+            }
             alt="instagram"
             href="https://instagram.com"
           />
 
           <area
             shape="rect"
-            coords={socialW * 0.5625 + "," + 15 + "," + socialW * 0.6875 + "," + 60}
+            coords={
+              socialW * 0.5625 + "," + 15 + "," + socialW * 0.6875 + "," + 60
+            }
             alt="opensea"
             href="https://opensea.io"
           />
           <area
             shape="rect"
-            coords={socialW * 0.6875 + "," + 15 + "," + socialW * 0.875 + "," + 60}
+            coords={
+              socialW * 0.6875 + "," + 15 + "," + socialW * 0.875 + "," + 60
+            }
             alt="youtube"
             href="https://youtube.com"
           />
