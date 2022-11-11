@@ -26,7 +26,7 @@ code {
 }
 
 .social {
-  width: 17rem;
+  width: 24rem;
   height: auto;
 }
 
@@ -36,16 +36,27 @@ code {
   top: 50%;
   right: 50%;
   transform: translate(50%, -50%);
-  width: 60%;
-  height: auto
+  width: 50rem;
+  height: 28.18rem;
+  
 }
 
-@media screen and (min-width: 1280px) {
-.social {
-  width: 25rem;
-  height: auto;
+@media screen and (min-width: 1600px) {
+  .social {
+    width: 32rem;
+    height: auto;
+  }
+  .player-wrapper {
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    width: 80rem;
+    height: 42.27rem;
+    
+  }
 }
-}
+
 
 @media screen and (max-width: 900px) {
   .player-wrapper {
@@ -57,7 +68,6 @@ code {
     height: auto;
     
   }
-
 }
 
 
