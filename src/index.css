@@ -36,9 +36,15 @@ code {
   top: 50%;
   right: 50%;
   transform: translate(50%, -50%);
-  width: 50rem;
-  height: 28.18rem;
-  
+  width: 60%;
+  height: auto
+}
+
+@media screen and (min-width: 1280px) {
+.social {
+  width: 25rem;
+  height: auto;
+}
 }
 
 @media screen and (max-width: 900px) {
@@ -51,6 +57,7 @@ code {
     height: auto;
     
   }
+
 }
 
 

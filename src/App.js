@@ -99,19 +99,14 @@ function getCurrentFrame(index) {
 
 const Embedvideo = (props) => {
   return (
-    <div
-      dangerouslySetInnerHTML={{
-        __html: `
-    <video
-      loop
-      muted
-      autoplay
-      playsinline
-      class="player-wrapper"
-    ><source src="${props.url}" type="video/mp4" /> </video>
-  `,
-      }}
-    ></div>
+    <iframe
+    src="https://www.youtube.com/embed/QtccWDtlinU"
+    title="Space of Ball"
+    frameborder="0"
+    className="player-wrapper"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  ></iframe>
   );
 };
 
