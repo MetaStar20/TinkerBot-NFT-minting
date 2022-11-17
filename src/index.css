@@ -178,7 +178,7 @@ code {
 
 .mobile__mint__section {
   position: fixed;
-  top: 65%;
+  top: 72%;
   right: 50%;
   transform: translate(50%, -50%);
   width: 100%;
@@ -246,11 +246,11 @@ code {
 @media screen and (max-width: 900px) {
   .player-wrapper {
     position: fixed;
-    top: 65%;
+    top: 70%;
     right: 50%;
     transform: translate(50%, -50%);
     width: 100%;
-    height: auto;
+    height: 56.36vw;
   }
 
   .menuSection {

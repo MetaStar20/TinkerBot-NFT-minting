@@ -27,7 +27,7 @@ import ReactPlayer from "react-player";
 window.Buffer = window.Buffer || require("buffer").Buffer;
 const youtubeURL = "https://youtu.be/QtccWDtlinU";
 
-const last_frame_of_logo = isMobile ? 130 : 125;
+const last_frame_of_logo = isMobile ? 148 : 150;
 
 const total_frames = 399;
 const total_frames_mobile = 386;
@@ -63,14 +63,13 @@ const youtube_index_end = isMobile ? 354 : 374;
 
 // variable when the menu will be displayed.
 
-const wallet_index_start = last_frame_of_logo;
+const wallet_index_start = last_frame_of_logo - 1;
 const wallet_index_end = isMobile ? total_frames_mobile : total_frames;
 
-const desc_scroll_y = isMobile ? 900 : 1400;
-const mint_scroll_y = isMobile ? 3600 : 2000;
-const road_scroll_y = isMobile ? 4150 : 4300;
-const space_scroll_y = isMobile ? 9400 : 8800;
-const team_scroll_y = isMobile ? 14000 : 16000;
+const mint_scroll_y = isMobile ? 2300 : 2000;
+const road_scroll_y = isMobile ? 3200 : 3300;
+const space_scroll_y = isMobile ? 9700 : 8800;
+const team_scroll_y = isMobile ? 11200 : 11500;
 
 const goTo = (pos) => {
   window.scrollTo({
@@ -145,6 +144,7 @@ const ImageCanvas = ({
   height,
   connectWallet,
   onMintHandler,
+  isLoading,
 }) => {
   const canvasRef = useRef(null);
   const [images, setImages] = useState([]);
@@ -166,7 +166,7 @@ const ImageCanvas = ({
   const Menu = ({ connectWallet }) => {
     return (
       <div className="menuSection">
-        <div className="menu__logo" onClick={() => goTo(desc_scroll_y)} />
+        <div className="menu__logo" onClick={() => goTo(0)} />
         <div
           className="menu__mint"
           onClick={() => goTo(mint_scroll_y)}
@@ -196,7 +196,7 @@ const ImageCanvas = ({
     return (
       <div>
         <div className="menuSection">
-          <div className="menu__logo" onClick={() => goTo(desc_scroll_y)} />
+          <div className="menu__logo" onClick={() => goTo(0)} />
           <div className="menu__second">
             <div
               className="menu__mint"
@@ -243,12 +243,13 @@ const ImageCanvas = ({
       Math.ceil(scrollFraction * numFrames)
     );
 
-    if (index <= 0 || index > numFrames) {
+    if (index <= 0 || index > numFrames - last_frame_of_logo) {
       return;
     }
-    if (index < 5) {
-      setFrameIndex(index);
-    } else setFrameIndex(index + last_frame_of_logo);
+
+    if (index >= 5) setFrameIndex(index + last_frame_of_logo);
+    else setFrameIndex(index);
+
     // For menu selection.
     const current = index + last_frame_of_logo;
     if (
@@ -278,12 +279,29 @@ const ImageCanvas = ({
     }
   };
 
+  useEffect(() => {
+    console.log('isLoading', isLoading);
+  }, [isLoading])
+
   const autoPlay = () => {
-    setFrameIndex((preIndex) => {
-      if (preIndex < last_frame_of_logo) return preIndex + 1;
-      else return preIndex;
-    });
+    if (!isLoading)
+      setFrameIndex((preIndex) => {
+        if (preIndex < last_frame_of_logo) return preIndex + 1;
+        else if (preIndex === last_frame_of_logo) {
+          window.scrollTo({
+            top: ((scrollHeight - window.innerHeight) / numFrames) * 6,
+          });
+          return preIndex;
+        } else return preIndex;
+      });
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      autoPlay();
+    }, 40);
+    return () => clearInterval(interval);
+  }, [isLoading]);
 
   const renderCanvas = () => {
     const context = canvasRef.current.getContext("2d");
@@ -342,13 +360,6 @@ const ImageCanvas = ({
 
     return () => cancelAnimationFrame(requestId);
   }, [frameIndex, images]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      autoPlay();
-    }, 40);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div style={{ height: scrollHeight }}>
@@ -678,7 +689,7 @@ const App = () => {
 
   const hideLoading = () => {
     setTimeout(() => {
-      setShowLoading(false);
+      setIsLoading(false);
     }, 1000);
 
     setTimeout(() => {
@@ -716,6 +727,7 @@ const App = () => {
         numFrames={isMobile ? total_frames_mobile : total_frames}
         connectWallet={connectWallet}
         onMintHandler={onMintHandler}
+        isLoading={showLoading}
       />
       <div className="socialSection">
         <img
