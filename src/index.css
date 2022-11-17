@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "ConnectedWFF";
+  font-weight: normal;
+  font-style: normal;
+  src: url("./assets/fonts/connected-characters.woff") format("woff"); /* Super Modern Browsers */
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -16,13 +23,142 @@ code {
   z-index: -1;
 }
 
+.menuSection {
+  position: fixed;
+  display: flex;
+  transition: all 1s ease;
+  top: 0%;
+  right: 50%;
+  transform: translateX(50%);
+  height: 10rem;
+  width: 100%;
+  margin-top: -2.5rem;
+}
+
 .socialSection {
   position: fixed;
   bottom: 0%;
   right: 50%;
   transform: translateX(50%);
   display: flex;
+  flex-direction: row;
   transition: all 1s ease;
+}
+
+.menu__logo {
+  background-image: url("./assets/img/logoani.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  flex: 475;
+  cursor: pointer;
+}
+
+.menu__mint {
+  background-image: url("./assets/img/MintBB.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex: 181;
+  height: 100%;
+  cursor: pointer;
+}
+
+.menu__mint:hover {
+  background-image: url("./assets/img/MintH.png");
+}
+
+.menu__mint:active {
+  background-image: url("./assets/img/MintC.png");
+}
+
+.menu__mint__active {
+  background-image: url("./assets/img/MintC.png");
+}
+
+.menu__roadmap {
+  background-image: url("./assets/img/RoadmapBB.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex: 273;
+  height: 100%;
+  cursor: pointer;
+}
+
+.menu__roadmap:hover {
+  background-image: url("./assets/img/RoadmapH.png");
+}
+
+.menu__roadmap:active {
+  background-image: url("./assets/img/RoadmapC.png");
+}
+
+.menu__roadmap__active {
+  background-image: url("./assets/img/RoadmapC.png");
+}
+
+.menu__space {
+  background-image: url("./assets/img/spaceballBB.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex: 363;
+  height: 100%;
+  cursor: pointer;
+}
+
+.menu__space:hover {
+  background-image: url("./assets/img/spaceballH.png");
+}
+
+.menu__space:active {
+  background-image: url("./assets/img/spaceballC.png");
+}
+
+.menu__space__active {
+  background-image: url("./assets/img/spaceballC.png");
+}
+
+.menu__team {
+  background-image: url("./assets/img/TeamBB.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex: 183;
+  height: 100%;
+  cursor: pointer;
+}
+
+.menu__team:hover {
+  background-image: url("./assets/img/TeamH.png");
+}
+
+.menu__team:active {
+  background-image: url("./assets/img/TeamC.png");
+}
+
+.menu__team__active {
+  background-image: url("./assets/img/TeamC.png");
+}
+
+.menu__wallet {
+  background-image: url("./assets/img/mywalletBB.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex: 327;
+  height: 100%;
+  cursor: pointer;
+}
+
+.menu__wallet:hover {
+  background-image: url("./assets/img/mywalletH.png");
+}
+
+.menu__wallet:active {
+  background-image: url("./assets/img/mywalletC.png");
 }
 
 .social {
@@ -38,7 +174,45 @@ code {
   transform: translate(50%, -50%);
   width: 50rem;
   height: 28.18rem;
-  
+}
+
+.mobile__mint__section {
+  position: fixed;
+  top: 65%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  width: 100%;
+  height: 100%;
+}
+
+
+.mobile__mint__dialog {
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  width: 100%;
+  height: auto;
+  margin-top: 2rem;
+}
+
+.mint__dialog {
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  width: 50%;
+  height: auto;
+  margin-top: 2rem;
+}
+
+.loading #icon {
+  width: 10rem;
+  height: 10rem;
+}
+.loading #text {
+  height: 8rem;
+  width: auto;
 }
 
 @media screen and (min-width: 1600px) {
@@ -53,10 +227,21 @@ code {
     transform: translate(50%, -50%);
     width: 80rem;
     height: 42.27rem;
-    
   }
-}
 
+  .menuSection {
+    position: fixed;
+    display: flex;
+    transition: all 1s ease;
+    top: 0%;
+    right: 50%;
+    transform: translateX(50%);
+    height: 10rem;
+    width: 100%;
+  }
+
+  
+}
 
 @media screen and (max-width: 900px) {
   .player-wrapper {
@@ -66,13 +251,99 @@ code {
     transform: translate(50%, -50%);
     width: 100%;
     height: auto;
-    
+  }
+
+  .menuSection {
+    height: 5rem;
+    flex-flow: row wrap;
+    margin-top: 0rem;
+  }
+  .menu__logo {
+    height: 100%;
+    width: 100%;
+    margin: 1rem 5rem;
+    flex: auto;
+    cursor: pointer;
+  }
+
+  .menu__second {
+    width: 100%;
+    height: 100%;
+    flex: auto;
+    display: flex;
+    margin: 1rem 6rem;
+    margin-top: -3.4rem;
+  }
+
+  .menu__mint {
+    height: 100%;
+    width: 50%;
+    flex: 181;
+  }
+
+  .menu__roadmap {
+    height: 100%;
+    width: 50%;
+    flex: 273;
+  }
+
+  .menu__third {
+    width: 100%;
+    height: 100%;
+    flex: auto;
+    display: flex;
+    margin: 1rem 1rem;
+    margin-top: -4rem;
+  }
+
+  .menu__space {
+    height: 100%;
+    width: 30%;
+    flex: 363;
+  }
+
+  .menu__team {
+    height: 100%;
+    width: 30%;
+    flex: 183;
+  }
+
+  .menu__wallet {
+    height: 100%;
+    width: 30%;
+    flex: 327;
+  }
+
+  .loading #icon {
+    width: 5rem;
+    height: 5rem;
+  }
+  .loading #text {
+    height: 4rem;
+    width: auto;
   }
 }
-
 
 .react-player {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.fade-hide {
+  opacity: 0;
+}
+
+.loading {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #001109;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }

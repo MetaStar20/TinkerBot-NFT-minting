@@ -13,7 +13,9 @@
     "react": "^17.0.2",
     "react-device-detect": "^2.2.2",
     "react-dom": "^17.0.2",
+    "react-modal-wrapper": "^0.5.4",
     "react-notifications": "^1.7.2",
+    "react-on-images-loaded": "^2.2.8",
     "react-player": "^2.11.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.0"
