@@ -29,8 +29,8 @@ const youtubeURL = "https://youtu.be/QtccWDtlinU";
 
 const last_frame_of_logo = isMobile ? 148 : 150;
 
-const total_frames = 399;
-const total_frames_mobile = 386;
+const total_frames = 392;
+const total_frames_mobile = 383;
 
 const width = 1920;
 const height = 1080;
@@ -67,9 +67,9 @@ const wallet_index_start = last_frame_of_logo - 1;
 const wallet_index_end = isMobile ? total_frames_mobile : total_frames;
 
 const mint_scroll_y = isMobile ? 2300 : 2000;
-const road_scroll_y = isMobile ? 3200 : 3300;
+const road_scroll_y = isMobile ? 3300 : 3300;
 const space_scroll_y = isMobile ? 9700 : 8800;
-const team_scroll_y = isMobile ? 11200 : 11500;
+const team_scroll_y = isMobile ? 11700 : 11700;
 
 const goTo = (pos) => {
   window.scrollTo({
