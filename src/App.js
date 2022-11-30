@@ -771,7 +771,7 @@ const App = () => {
               socialW * 0.125 + "," + 15 + "," + socialW * 0.2375 + "," + 100
             }
             alt="twitter"
-            href="https://twitter.com/TinkerRobots/"
+            href="https://twitter.com/TinkeRobots"
           />
 
           <area
