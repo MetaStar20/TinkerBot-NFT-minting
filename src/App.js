@@ -772,6 +772,7 @@ const App = () => {
             }
             alt="twitter"
             href="https://twitter.com/TinkeRobots"
+            target="_blank"
           />
 
           <area
@@ -781,6 +782,7 @@ const App = () => {
             }
             alt="discord"
             href="https://discord.gg/EVfza6FZ"
+            target="_blank"
           />
 
           <area
@@ -790,6 +792,7 @@ const App = () => {
             }
             alt="instagram"
             href="https://www.instagram.com/pixelparadisogames/"
+            target="_blank"
           />
 
           <area
@@ -799,6 +802,7 @@ const App = () => {
             }
             alt="opensea"
             href="https://opensea.io"
+            target="_blank"
           />
           <area
             shape="rect"
@@ -807,6 +811,7 @@ const App = () => {
             }
             alt="youtube"
             href="https://www.youtube.com/@pixelparadisogames"
+            target="_blank"
           />
         </map>
       )}
