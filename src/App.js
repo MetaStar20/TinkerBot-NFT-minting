@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react";
 
 import { ENVS } from "./config";
 import contractABI from "./abis/abi.json";
-import OnImagesLoaded from "react-on-images-loaded";
 
 import { ethers } from "ethers";
 import detectEthereumProvider from "@metamask/detect-provider";
@@ -17,15 +16,15 @@ import socialRec from "./assets/img/socialRec.png";
 import LoadingTxt from "./assets/img/loadingTxt.gif";
 import LoadingImg from "./assets/img/loading.gif";
 import MintDlgImg from "./assets/img/mint_dialog.png";
+import MintCommingDlgImg from "./assets/img/mint_comming_dialog.png";
+import MintWhiteDlgImg from "./assets/img/mint_comming_white_dialog.png";
 
 import FlexModalWrapper from "react-modal-wrapper";
 import "react-modal-wrapper/dist/main.css"; // to load default styles
 
 import { isMobile } from "react-device-detect";
-import ReactPlayer from "react-player";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
-const youtubeURL = "https://youtu.be/QtccWDtlinU";
 
 const last_frame_of_logo = isMobile ? 148 : 150;
 
@@ -70,6 +69,12 @@ const mint_scroll_y = isMobile ? 2300 : 2000;
 const road_scroll_y = isMobile ? 3300 : 3300;
 const space_scroll_y = isMobile ? 9700 : 8800;
 const team_scroll_y = isMobile ? 11700 : 11700;
+
+const walletList = [
+  "0xC75DE6d76048239AA40040DEc2DabE2Da4E5AE89",
+  "0x5C9E2A6fEc34b510996a8e2a3d1e2c47A382a8b9",
+  "0xd63c2b1649a1f5e2bb7A4d09A66b74d0B23dfD07",
+];
 
 const goTo = (pos) => {
   window.scrollTo({
@@ -145,6 +150,7 @@ const ImageCanvas = ({
   connectWallet,
   onMintHandler,
   isLoading,
+  walletAddress,
 }) => {
   const canvasRef = useRef(null);
   const [images, setImages] = useState([]);
@@ -159,6 +165,9 @@ const ImageCanvas = ({
 
   const [mintDlgW, setMintDlgW] = useState(0);
   const [mintDlgH, setMintDlgH] = useState(0);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [isWhitelist, setIsWhitelist] = useState(false);
 
   const mintDlgWRef = useRef(0);
   const mintDlgHref = useRef(0);
@@ -280,8 +289,21 @@ const ImageCanvas = ({
   };
 
   useEffect(() => {
-    console.log('isLoading', isLoading);
-  }, [isLoading])
+    console.log(walletAddress);
+    if (new Date().getTime() > new Date("2022-11-10").getTime())
+      setIsOpen(true);
+    if (
+      walletAddress &&
+      walletList.indexOf(ethers.utils.getAddress(walletAddress)) !== -1
+    ) {
+      console.log("whitelist");
+      setIsWhitelist(true);
+    }
+  }, [walletAddress]);
+
+  useEffect(() => {
+    console.log("isLoading", isLoading);
+  }, [isLoading]);
 
   const autoPlay = () => {
     if (!isLoading)
@@ -331,6 +353,7 @@ const ImageCanvas = ({
         frameIndex < mint_index_end
       ) {
         console.log("mint section clicked");
+        connectWallet();
         setShowDialog(true);
         setTimeout(() => {
           setMintDlgW(mintDlgRef.current.clientWidth);
@@ -454,7 +477,13 @@ const ImageCanvas = ({
         >
           <img
             className="mint__dialog"
-            src={MintDlgImg}
+            src={
+              isOpen
+                ? MintDlgImg
+                : isWhitelist
+                ? MintWhiteDlgImg
+                : MintCommingDlgImg
+            }
             useMap="#mintMap"
             ref={mintDlgRef}
             alt="Mint Dialog"
@@ -475,7 +504,7 @@ const ImageCanvas = ({
               alt="one"
               href="javascript: void(0);"
               onClick={() => {
-                onMintHandler(1);
+                isOpen && onMintHandler(1);
               }}
             />
             <area
@@ -492,7 +521,7 @@ const ImageCanvas = ({
               alt="two"
               href="javascript: void(0);"
               onClick={() => {
-                onMintHandler(2);
+                isOpen && onMintHandler(2);
               }}
             />
             <area
@@ -509,7 +538,7 @@ const ImageCanvas = ({
               alt="three"
               href="javascript: void(0);"
               onClick={() => {
-                onMintHandler(3);
+                isOpen && onMintHandler(3);
               }}
             />
           </map>
@@ -567,12 +596,6 @@ const App = () => {
         contractABI,
         signer
       );
-
-      var walletList = [
-        "0xC75DE6d76048239AA40040DEc2DabE2Da4E5AE89",
-        "0x5C9E2A6fEc34b510996a8e2a3d1e2c47A382a8b9",
-        "0xd63c2b1649a1f5e2bb7A4d09A66b74d0B23dfD07",
-      ];
 
       console.log(walletAddress);
 
@@ -728,6 +751,7 @@ const App = () => {
         connectWallet={connectWallet}
         onMintHandler={onMintHandler}
         isLoading={showLoading}
+        walletAddress={account}
       />
       <div className="socialSection">
         <img
@@ -747,7 +771,7 @@ const App = () => {
               socialW * 0.125 + "," + 15 + "," + socialW * 0.2375 + "," + 100
             }
             alt="twitter"
-            href="https://twitter.com"
+            href="https://twitter.com/TinkerRobots/"
           />
 
           <area
@@ -756,7 +780,7 @@ const App = () => {
               socialW * 0.2375 + "," + 15 + "," + socialW * 0.4375 + "," + 100
             }
             alt="discord"
-            href="https://discord.com"
+            href="https://discord.gg/EVfza6FZ"
           />
 
           <area
@@ -765,7 +789,7 @@ const App = () => {
               socialW * 0.4375 + "," + 15 + "," + socialW * 0.5625 + "," + 100
             }
             alt="instagram"
-            href="https://instagram.com"
+            href="https://www.instagram.com/pixelparadisogames/"
           />
 
           <area
@@ -782,7 +806,7 @@ const App = () => {
               socialW * 0.6875 + "," + 15 + "," + socialW * 0.875 + "," + 100
             }
             alt="youtube"
-            href="https://youtube.com"
+            href="https://www.youtube.com/@pixelparadisogames"
           />
         </map>
       )}
