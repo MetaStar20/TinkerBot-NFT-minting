@@ -290,7 +290,7 @@ const ImageCanvas = ({
 
   useEffect(() => {
     console.log(walletAddress);
-    if (new Date().getTime() > new Date("2022-11-10").getTime())
+    if (new Date().getTime() > new Date("2022-12-10").getTime())
       setIsOpen(true);
     if (
       walletAddress &&
@@ -404,7 +404,13 @@ const ImageCanvas = ({
           <div className="mobile__mint__section">
             <img
               className="mobile__mint__dialog"
-              src={MintDlgImg}
+              src={
+                isOpen
+                  ? MintDlgImg
+                  : isWhitelist
+                  ? MintWhiteDlgImg
+                  : MintCommingDlgImg
+              }
               useMap="#mintMobileMap"
               alt="Mint Mobile Dialog"
             />
