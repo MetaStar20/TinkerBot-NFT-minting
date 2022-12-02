@@ -290,7 +290,7 @@ const ImageCanvas = ({
 
   useEffect(() => {
     console.log(walletAddress);
-    if (new Date().getTime() > new Date("2022-12-10").getTime())
+    if (new Date().getTime() > new Date("2022-11-10").getTime())
       setIsOpen(true);
     if (
       walletAddress &&
@@ -405,11 +405,9 @@ const ImageCanvas = ({
             <img
               className="mobile__mint__dialog"
               src={
-                isOpen
-                  ? MintDlgImg
-                  : isWhitelist
-                  ? MintWhiteDlgImg
-                  : MintCommingDlgImg
+                
+                   MintDlgImg
+
               }
               useMap="#mintMobileMap"
               alt="Mint Mobile Dialog"
@@ -484,11 +482,9 @@ const ImageCanvas = ({
           <img
             className="mint__dialog"
             src={
-              isOpen
-                ? MintDlgImg
-                : isWhitelist
-                ? MintWhiteDlgImg
-                : MintCommingDlgImg
+
+                 MintDlgImg
+
             }
             useMap="#mintMap"
             ref={mintDlgRef}
@@ -510,7 +506,7 @@ const ImageCanvas = ({
               alt="one"
               href="javascript: void(0);"
               onClick={() => {
-                isOpen && onMintHandler(1);
+                 onMintHandler(1);
               }}
             />
             <area
@@ -527,7 +523,7 @@ const ImageCanvas = ({
               alt="two"
               href="javascript: void(0);"
               onClick={() => {
-                isOpen && onMintHandler(2);
+                onMintHandler(2);
               }}
             />
             <area
@@ -544,7 +540,7 @@ const ImageCanvas = ({
               alt="three"
               href="javascript: void(0);"
               onClick={() => {
-                isOpen && onMintHandler(3);
+                 onMintHandler(3);
               }}
             />
           </map>
@@ -747,6 +743,7 @@ const App = () => {
 
   return (
     <main>
+
       {showLoading ? <Loading isLoading={isLoading} /> : null}
 
       <ImageCanvas
